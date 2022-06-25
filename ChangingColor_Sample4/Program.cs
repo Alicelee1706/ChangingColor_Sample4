@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 class HelloWorld
 {
     static void Main()
@@ -74,7 +74,87 @@ class Cell
     }
     private int[,] GetCell(int idx)
     {
-
+        switch (idx)
+        {
+            case 1;
+                return DCell1();
+                break;
+            case 2;
+                return DCell2();
+                break;
+            case 3;
+                return DCell3();
+                break;
+            case 4;
+                return DCell4();
+                break;
+            case 5;
+                return DCell5();
+                break;
+            case 6;
+                return DCell6();
+                break;
+        }
+    }
+    private int[,] DCell1()
+    {
+        int[,] values =
+        {
+            {1,1,1},
+            {1,1,1},
+            [1,1,1]
+        };
+        return values;
+    }
+   private int[,] DCell2()
+    {
+        int[,] values =
+        {
+            {1,0,0},
+            {1,0,0},
+            [1,1,1]
+        };
+        return values;
+    }
+   private int[,] DCell3()
+    {
+        int[,] values =
+        {
+            {1,1,0},
+            {0,1,0},
+            [0,1,1]
+        };
+        return values;
+    }
+   private int[,] DCell4()
+    {
+        int[,] values =
+        {
+            {1,1,1},
+            {0,1,0},
+            [0,0,0]
+        };
+        return values;
+    }
+   private int[,] DCell5()
+    {
+        int[,] values =
+        {
+            {0,0,0},
+            {0,1,0},
+            [0,0,0]
+        };
+        return values;
+    }
+   private int[,] DCell6()
+    {
+        int[,] values =
+        {
+            {0,1,0},
+            {0,1,0},
+            [0,1,0]
+        };
+        return values;
     }
     public void Draw ()
     {
