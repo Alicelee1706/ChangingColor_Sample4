@@ -7,10 +7,9 @@ class HelloWorld
         int y = 1;
         int xOld, yOld;
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.SetCursorPosition(x, y);
-        Console.WriteLine("Hello World");
+        Cell cell=new Cell (ConsoleColor.Black, ConsoleColor.Red);
 
+        cell.Draw();
         Console.SetCursorPosition(0, 20);
         Console.WriteLine("_______________________________");
         for (int i = 0; i < 20; i++)
@@ -76,19 +75,19 @@ class Cell
     {
         switch (idx)
         {
-            case 1;
+            case 1:
                 return DCell1();
                 break;
-            case 2;
+            case 2:
                 return DCell2();
                 break;
-            case 3;
+            case 3:
                 return DCell3();
                 break;
-            case 4;
+            case 4:
                 return DCell4();
                 break;
-            case 5;
+            case 5:
                 return DCell5();
                 break;
         }
@@ -100,7 +99,7 @@ class Cell
         {
             {1,1,1},
             {1,1,1},
-            [1,1,1]
+            {1,1,1}
         };
         return values;
     }
@@ -110,7 +109,7 @@ class Cell
         {
             {1,0,0},
             {1,0,0},
-            [1,1,1]
+            {1,1,1}
         };
         return values;
     }
@@ -120,7 +119,7 @@ class Cell
         {
             {1,1,0},
             {0,1,0},
-            [0,1,1]
+            {0,1,1}
         };
         return values;
     }
@@ -130,7 +129,7 @@ class Cell
         {
             {1,1,1},
             {0,1,0},
-            [0,0,0]
+            {0,0,0}
         };
         return values;
     }
@@ -140,7 +139,7 @@ class Cell
         {
             {0,0,0},
             {0,1,0},
-            [0,0,0]
+            {0,0,0}
         };
         return values;
     }
@@ -150,88 +149,48 @@ class Cell
         {
             {0,1,0},
             {0,1,0},
-            [0,1,0]
+            {0,1,0}
         };
         return values;
     }
     public void Draw ()
     {
-        int x1 = x, y1 = y;
+        int y1 = y;
         Console.ForegroundColor = fg;
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
-                Console.SetCursorPosition(x1 + i, y1);
-                Console.Write("{0}", b1[i,j]);
+                Console.SetCursorPosition(x + j, y1);
+                Console.Write("{0}", cell[i,j] == 0? ' ' : '*');
             }    
             y1++;
         }
     }
     private void ClearT()
     {
-        int x1 = xOld, y1 = yOld;
+        int y1 = y;
         Console.ForegroundColor = bg;
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
-                Console.SetCursorPosition(x1 + i, y1);
-                Console.Write("{0}", b1[i,j]);
+                Console.SetCursorPosition(x + j, y1);
+                Console.Write("{0}", cell[i,j] == 0? ' ' : '*');
             }    
             y1++;
         }
     }
     public void Move ()
     {
-        do
-        {
-            xOld = x;
-            yOld = y;
-            ConsoleKeyInfo ke;
-            ke = Console.ReadKey();
-            if (ke.Key == ConsoleKey.Escape)
-            {
-                break;
-            }
-            switch (ke.Key)
-            {
-                case ConsoleKey.LeftArrow:
-                    if (x > 0)
-                    {
-                        x--;
-                    }
-                    break;
-                case ConsoleKey.RightArrow:
-                    if (x < 19)
-                    {
-                        x++;
-                    }
-                    break;
-                case ConsoleKey.UpArrow:
-                    if (y > 0)
-                    {
-                        y--;
-                    }
-       
-                    break;
-                case ConsoleKey.DownArrow:
-                    if (y < 19)
-                    {
-                        y++;
-                    }
-                    break;
-            }
-        }
-        while (true);
     }
     public Cell (ConsoleColor bg, ConsoleColor fg)
     {
-        Cell = new int[5,3];
+        cell = new int[5,3];
         x = 0;
         y = 0;
-        this bg = bg;
-        this fg = fg;
+        this.bg = bg;
+        this.fg = fg;
         cell = NextCell();
     }
 }
