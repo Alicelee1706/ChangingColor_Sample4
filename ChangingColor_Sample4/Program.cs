@@ -91,10 +91,8 @@ class Cell
             case 5;
                 return DCell5();
                 break;
-            case 6;
-                return DCell6();
-                break;
         }
+         return DCell6();
     }
     private int[,] DCell1()
     {
