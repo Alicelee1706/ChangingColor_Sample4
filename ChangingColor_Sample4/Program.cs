@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Linq;
+using System.Threading.Tasks;
 class HelloWorld
 {
     static void Main()
@@ -7,9 +9,15 @@ class HelloWorld
         int x = 0;
         int y = 1;
         int xOld, yOld;
+        //Console.ForegroundColor = ConsoleColor.White;
 
         Cell cell = new Cell(ConsoleColor.Black, ConsoleColor.Red);
-
+        var rkey = new Task(ReadKeys);
+        var animate = new Task(Animation);
+        rkey.Start();
+        animate.Start();
+        var work = new[] { rkey };
+        Task.WaitAll(work);
         cell.Draw();
 
 
@@ -145,6 +153,19 @@ class HelloWorld
             this.fg = fg;
             cell = NextCell();
         }
+        public int X
+        {
+            set
+            {
+                Clean();
+                x = value;
+                Draw();
+            }
+            get
+            {
+                return x;
+            }
+        }
         public int Y
         {
             set
@@ -158,6 +179,5 @@ class HelloWorld
                 return y;
             }
         }
-
     }
 }
