@@ -2,27 +2,69 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 class HelloWorld
 {
+    static Cell cell = new Cell(ConsoleColor.Black, ConsoleColor.Red);
     static void Main()
     {
+        Console.CancelKeyPress += (sender, e) =>
+        {
+            Environment.Exit(0);
+        };
+
         int x = 0;
         int y = 1;
-        int xOld, yOld;
         //Console.ForegroundColor = ConsoleColor.White;
 
-        Cell cell = new Cell(ConsoleColor.Black, ConsoleColor.Red);
         var rkey = new Task(ReadKeys);
         var animate = new Task(Animation);
         rkey.Start();
         animate.Start();
         var work = new[] { rkey };
         Task.WaitAll(work);
-        cell.Draw();
 
 
     }
-    class Cell
+    private static void ReadKeys()
+    {
+        ConsoleKeyInfo ky = new ConsoleKeyInfo();
+        while (!Console.KeyAvailable && ky.Key != ConsoleKey.Escape)
+        {
+            ky = Console.ReadKey(true);
+            switch (ky.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    if (cell.X > 0)
+                    {
+                        cell.X = cell.X--;
+                    }
+                    break;
+                case ConsoleKey.RightArrow:
+                    cell.X = cell.X++;
+                    break;
+                case ConsoleKey.UpArrow:
+                    if (cell.Y > 0)
+                    {
+                        cell.Y = cell.Y--;
+                    }
+                    break;
+                case ConsoleKey.DownArrow:
+                    cell.Y = cell.Y + 3;
+                    break;
+            }
+        }
+    }
+    private static void Animation()
+    {
+        for ( ; ; )
+        {
+            Thread.Sleep(1000);
+            cell.Y = cell.Y + 1;
+        }
+    }
+}    
+class Cell
     {
         private int[,] cell;
         private int x, y;
@@ -180,4 +222,3 @@ class HelloWorld
             }
         }
     }
-}
