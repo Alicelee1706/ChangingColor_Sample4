@@ -15,7 +15,7 @@ class HelloWorld
 
         int x = 0;
         int y = 1;
-        //Console.ForegroundColor = ConsoleColor.White;
+        
 
         var rkey = new Task(ReadKeys);
         var animate = new Task(Animation);
@@ -37,27 +37,33 @@ class HelloWorld
                 case ConsoleKey.LeftArrow:
                     if (cell.X > 0)
                     {
-                        cell.X = cell.X--;
+                        cell.X = cell.X - 1;
                     }
                     break;
                 case ConsoleKey.RightArrow:
-                    cell.X = cell.X++;
+                    if (cell.X < 12)
+                    {
+                        cell.X = cell.X + 1;
+                    }
                     break;
                 case ConsoleKey.UpArrow:
                     if (cell.Y > 0)
                     {
-                        cell.Y = cell.Y--;
+                        cell.Y = cell.Y  - 1;
                     }
                     break;
                 case ConsoleKey.DownArrow:
-                    cell.Y = cell.Y + 3;
+                    if (cell.Y < 12)
+                    {
+                        cell.Y = cell.Y + 3;
+                    }
                     break;
             }
         }
     }
     private static void Animation()
     {
-        for ( ; ; )
+        for ( ;cell.Y < 12; )
         {
             Thread.Sleep(1000);
             cell.Y = cell.Y + 1;
@@ -125,16 +131,26 @@ class Cell
         }
         public void Draw()
         {
-            int y1 = y;
+            Console.ForegroundColor = ConsoleColor.White;
+            for (int i = 0; i < 15; i++)
+            {
+                Console.SetCursorPosition(15, i);
+                Console.WriteLine("|");
+            }
+            for (int i = 0; i < 15; i++)
+            {
+                Console.SetCursorPosition(i, 15);
+                Console.Write("-");
+            }
+        int y1 = y;
             Console.ForegroundColor = fg;
             for (int i = 0; i < 3; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    Console.SetCursorPosition(x + j, y1);
+                    Console.SetCursorPosition(x + j, y1+i);
                     Console.Write("{0}", cell[i, j] == 0 ? ' ' : '*');
                 }
-                y1++;
             }
         }
         public void Clean()
@@ -145,10 +161,9 @@ class Cell
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    Console.SetCursorPosition(x + j, y1);
+                    Console.SetCursorPosition(x + j, y1+i);
                     Console.Write("{0}", cell[i, j] == 0 ? ' ' : '*');
                 }
-                y1++;
             }
         }
         public void Move()
@@ -202,7 +217,7 @@ class Cell
                 Clean();
                 x = value;
                 Draw();
-            }
+        }
             get
             {
                 return x;
