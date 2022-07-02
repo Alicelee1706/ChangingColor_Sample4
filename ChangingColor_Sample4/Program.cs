@@ -13,10 +13,6 @@ class HelloWorld
             Environment.Exit(0);
         };
 
-        int x = 0;
-        int y = 1;
-
-
         var rkey = new Task(ReadKeys);
         var animate = new Task(Animation);
         rkey.Start();
@@ -46,12 +42,6 @@ class HelloWorld
                     }
                     break;
                 case ConsoleKey.UpArrow:
-                    if (cell.Y > 0)
-                    {
-                        cell.Y = cell.Y - 1;
-                    }
-                    break;
-                case ConsoleKey.DownArrow:
                     if (cell.Y < 12)
                     {
                         cell.Y = cell.Y + 3;
