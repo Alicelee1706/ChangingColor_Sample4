@@ -212,7 +212,3 @@ class Cell
         }
     }
 }
-class Board
-{
-    private int table;
-}
